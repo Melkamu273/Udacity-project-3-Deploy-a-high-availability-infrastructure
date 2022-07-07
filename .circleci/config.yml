@@ -130,4 +130,4 @@ workflows:
       - scan-frontend:
           requires: [build-frontend]    
       - notify:
-          context: SLACK_ACCESS_TOKEN    
+          context: $SLACK_ACCESS_TOKEN    
