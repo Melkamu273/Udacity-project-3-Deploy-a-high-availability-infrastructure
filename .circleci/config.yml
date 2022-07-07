@@ -95,27 +95,7 @@ jobs:
               npm audit fix --force
               npm audit --audit-level=critical 
 
-  notify:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+  
 workflows:
   default:
     jobs:
@@ -129,5 +109,5 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]    
-      - notify
+      
            
