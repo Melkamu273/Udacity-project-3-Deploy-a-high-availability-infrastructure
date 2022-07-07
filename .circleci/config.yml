@@ -97,7 +97,7 @@ jobs:
 
   notify:
     docker:
-      - image: circleci/node:13.8.0
+      - image: 'cimg/base:stable'
     steps:
       - slack/notify:
           custom: |
