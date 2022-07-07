@@ -65,49 +65,42 @@ jobs:
               cd backend
               npm install
               npm run test
+  scan-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout   
+      - restore_cache:
+          keys: [frontend-build]
+      - run:
+          name: Run back end analayze
+          command: |      
+              cd frontend
+              npm install
+              npm audit fix --audit-level=critical --force
+              npm audit --audit-level=critical
+
+  scan-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout   
+      - restore_cache:
+          keys: [backend-build] 
+      - run:
+          name: Run back end analayze
+          command: |      
+              cd backend
+              npm install
+              npm audit fix --force
+              npm audit --audit-level=critical 
       - slack/notify:
           event: fail
           mentions: '@EngineeringTeam'
           template: basic_fail_1
       - slack/notify:
           event: pass
-          template: success_tagged_deploy_1         
-  # scan-frontend:
-  #   docker:
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     - checkout   
-  #     - restore_cache:
-  #         keys: [frontend-build]
-  #     - run:
-  #         name: Run back end analayze
-  #         command: |      
-  #             cd frontend
-  #             npm install
-  #             npm audit fix --audit-level=critical --force
-  #             npm audit --audit-level=critical
-
-  # scan-backend:
-  #   docker:
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     - checkout   
-  #     - restore_cache:
-  #         keys: [backend-build] 
-  #     - run:
-  #         name: Run back end analayze
-  #         command: |      
-  #             cd backend
-  #             npm install
-  #             npm audit fix --force
-  #             npm audit --audit-level=critical 
-  #     - slack/notify:
-  #         event: fail
-  #         mentions: '@EngineeringTeam'
-  #         template: basic_fail_1
-  #     - slack/notify:
-  #         event: pass
-  #         template: success_tagged_deploy_1        
+          template: success_tagged_deploy_1        
 
 
 workflows:
@@ -119,9 +112,9 @@ workflows:
           requires: [build-frontend]
       - test-backend:
           requires: [build-backend]
-      # - scan-backend:
-      #     requires: [build-backend]
-      # - scan-frontend:
-      #     requires: [build-frontend]    
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]    
       
            
