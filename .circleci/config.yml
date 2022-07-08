@@ -176,7 +176,8 @@ jobs:
           command: |
             cd backend
             npm cache clean -f
-            npm install npm@latest
+            npm install -g n
+            n stable
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to memstash
