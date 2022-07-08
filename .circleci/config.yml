@@ -132,16 +132,21 @@ jobs:
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
               --tags project=udapeople
+              # exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            # Your code here
-            # exit 1
-      - destroy_environment
+            touch ~/inventory.txt
+            echo [web] > ~/inventory.txt
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text >> ~/inventory.txt
+            cat ~/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt                
+            - inventory.txt
+      - destroy-environment
 
 
 workflows:
