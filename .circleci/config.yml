@@ -73,7 +73,7 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Run back end analayze
+          name: Run front end analayze
           command: |      
               cd frontend
               npm install
