@@ -183,7 +183,38 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
                 curl https://kvdb.io/BUzSmxpEEdGXfmNSEq6Jbm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-            fi
+            fi 
+
+  deploy-frontend:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            aws cloudformation deploy \
+            --template-file bucket.yml \
+            --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
+            --parameter-overrides MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Get backend url
+          command: |
+            export BACKEND_IP="52.87.157.168"
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "API_URL = ${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
+      - run:
+          name: Deploy frontend objects
+          command: |
+            cd frontend
+            npm install
+            npm run build
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+      
+                
 workflows:
   default:
     jobs:
@@ -204,7 +235,9 @@ workflows:
               only: [circleci-project-setup] 
       - configure-infrastructure:
           requires: [deploy-infrastructure] 
-      # - run-migrations:
-      #     requires: [configure-infrastructure]        
+      - run-migrations:
+          requires: [configure-infrastructure] 
+      # - deploy-frontend:
+      #     requires: [run-migrations]       
       
            
