@@ -176,6 +176,7 @@ jobs:
           command: |
             cd backend
             npm cache clean -f
+            chown -R $USER /usr/local/lib/node_modules
             npm install -g n
             n stable
             npm run migrations > migrations_dump.txt
