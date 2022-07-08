@@ -204,7 +204,7 @@ workflows:
               only: [circleci-project-setup] 
       - configure-infrastructure:
           requires: [deploy-infrastructure] 
-      - run-migrations:
-          requires: [configure-infrastructure]        
+      # - run-migrations:
+      #     requires: [configure-infrastructure]        
       
            
