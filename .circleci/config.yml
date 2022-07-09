@@ -284,7 +284,7 @@ jobs:
       - checkout
       - run: sudo apt update -y
       - run: sudo apt upgrade -y
-      -run: sudo pm2 logs
+      - run: sudo pm2 logs
       - run:
           name: Install dependencies
           command: sudo apt install awscli -y 
