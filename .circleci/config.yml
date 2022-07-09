@@ -243,8 +243,10 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
-          name: install awscli
+          name: install awscli 
           command: sudo apt install awscli -y
       - run:
           name: install ansible
