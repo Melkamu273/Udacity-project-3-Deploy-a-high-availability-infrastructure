@@ -5,9 +5,7 @@ commands:
   destroy_environment:
     steps:
       - run:
-          name: Destroy environment
-          # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
-          # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
+          name: Destroy environment 
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7}
@@ -203,7 +201,7 @@ jobs:
             then
                 curl https://kvdb.io/BUzSmxpEEdGXfmNSEq6Jbm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi 
-            
+
 
   deploy-frontend:
     docker:
