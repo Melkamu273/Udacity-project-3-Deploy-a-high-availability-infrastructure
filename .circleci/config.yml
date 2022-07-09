@@ -211,7 +211,7 @@ jobs:
       - checkout
       - run:
           name: install awscli
-          command: sudo apt install awscli -y
+          command: apt install awscli -y
       - attach_workspace:
           at: ~/
       - run:
