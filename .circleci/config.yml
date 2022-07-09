@@ -206,7 +206,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
@@ -297,6 +297,8 @@ workflows:
       - run-migrations:
           requires: [configure-infrastructure] 
       - deploy-frontend:
-          requires: [run-migrations]       
+          requires: [run-migrations] 
+      # - deploy-backend:
+      #     requires: [run-migrations]          
       
            
