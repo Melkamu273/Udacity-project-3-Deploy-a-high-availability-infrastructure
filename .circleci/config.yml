@@ -270,7 +270,7 @@ jobs:
             python3 -m pip install --upgrade pip
             python3 -m pip install ansible --user
       - add_ssh_keys:
-          fingerprints: ["bf:8b:8a:0e:4a:22:f7:6b:d9:e6:3b:dd:15:21:d6:dc"]  
+          fingerprints: ["72:c9:06:64:a7:40:16:da:48:e4:91:b8:ba:a1:c2:db"]  
       - attach_workspace:
           at: ~/
       - run:
