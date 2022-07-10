@@ -257,10 +257,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints: ["bf:8b:8a:0e:4a:22:f7:6b:d9:e6:3b:dd:15:21:d6:dc"]  
-      - attach_workspace:
-          at: ~/
       - run: sudo apt update -y
       - run: sudo apt upgrade -y
       - run:
@@ -273,7 +269,10 @@ jobs:
             sudo apt install python3-pip -y
             python3 -m pip install --upgrade pip
             python3 -m pip install ansible --user
-      
+      - add_ssh_keys:
+          fingerprints: ["bf:8b:8a:0e:4a:22:f7:6b:d9:e6:3b:dd:15:21:d6:dc"]  
+      - attach_workspace:
+          at: ~/
       - run:
           name: Deploy Backend
           command: |
@@ -288,8 +287,7 @@ jobs:
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat  ~/inventory.txt
-            cd .circleci/ansible
-            ansible-playbook inventory.txt deploy-backend.yml
+            ansible-playbook -i ~/inventory.txt deploy-backend.yml
       - destroy_environment
       - revert_migrations   
 
