@@ -286,8 +286,6 @@ jobs:
       - run:
           name: Install dependencies
           command: sudo apt install awscli -y 
-      - add_ssh_keys:
-          fingerprints: ["bf:8b:8a:0e:4a:22:f7:6b:d9:e6:3b:dd:15:21:d6:dc"] 
       - run:
           name: Backend smoke test.
           command: |
@@ -343,9 +341,9 @@ workflows:
           requires: [configure-infrastructure] 
       - deploy-frontend:
           requires: [run-migrations] 
-      - deploy-backend:
-          requires: [run-migrations]  
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]            
+      # - deploy-backend:
+      #     requires: [run-migrations]  
+      # - smoke-test:
+      #     requires: [deploy-backend, deploy-frontend]            
       
            
