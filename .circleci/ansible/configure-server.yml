@@ -12,14 +12,17 @@
     - ansible_host_key_checking: false
     - ansible_stdout_callback: yaml
 
-  # pre_tasks:
-  #   - name: "wait 600 seconds for target connection to become reachable/usable."
-  #     # Your code here
+  pre_tasks:
+    - name: "wait 600 seconds for target connection to become reachable/usable."
+      wait_for_connection:
 
-  #   - name: "install python for Ansible."
-  #     # Your code here
+    - name: "install python for Ansible."
+      become: true
+      raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
+      changed_when: false
 
-  environment:  
+  # Get the environment variables from CircleCI and add to the EC2 instance
+  environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
     - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
     - TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
@@ -32,3 +35,5 @@
 
   roles:
     - configure-server
+    # configure node exporter
+    - configure-prometheus-node-exporter
