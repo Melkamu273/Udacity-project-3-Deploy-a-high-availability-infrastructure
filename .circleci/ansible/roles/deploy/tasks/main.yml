@@ -13,7 +13,8 @@
   become: true
   shell: |
     cd /home/ubuntu/app
-    npm install
+    # npm install
+    pm2 start npm -- start
 
 - name: Start node server daemon with pm2
   become: true
