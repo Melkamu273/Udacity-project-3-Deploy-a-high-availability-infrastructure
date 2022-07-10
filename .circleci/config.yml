@@ -274,7 +274,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Deploy Backend
+          name: Deploy my Backend
           command: |
             cd backend
             npm i
