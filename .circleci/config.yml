@@ -329,7 +329,26 @@ jobs:
       - destroy_environment
       - revert_migrations          
       
-         
+   cloudfront-update:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
+      - run:
+          name: install awscli
+          command: sudo apt install awscli -y
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/cloudfront.yml \
+              --stack-name InitialStack \
+              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:6}" \
+              --tags project=udapeople
+      - destroy-environment
+      - revert-migrations        
                 
 workflows:
   default:
@@ -358,6 +377,10 @@ workflows:
       - deploy-backend:
           requires: [run-migrations]  
       - smoke-test:
-          requires: [deploy-backend, deploy-frontend]            
+          requires: [deploy-backend, deploy-frontend] 
+      - cloudfront-update:
+          requires: [smoke-test]
+      # - cleanup:
+      #     requires: [cloudfront-update]               
       
            
