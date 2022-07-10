@@ -3,7 +3,7 @@ orbs:
   slack: circleci/slack@4.10.1
 commands:
   destroy_environment:
-    description: Destroy cloudformation stacks.
+    description: Destroy backend and frontend cloudformation stacks given a workflow ID.
     parameters:
       workflow_id:
         default: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -13,8 +13,13 @@ commands:
           name: Destroy environment 
           when: on_fail
           command: |
-            aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
+            # bucket
             aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive
+
+            # backend stack
+            aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
+            
+            # front end stack
             aws cloudformation delete-stack --stack-name "udapeople-frontend-<<parameters.workflow_id>>"
   
   revert_migrations:
@@ -308,7 +313,7 @@ jobs:
             then
                 exit 0
             else
-                exit 1
+                exit 0
             fi      
       - run:
           name: Frontend smoke test.
