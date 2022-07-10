@@ -179,7 +179,7 @@ jobs:
           paths:
             - inventory.txt
             - old_workflow_id.txt
-            
+
       - destroy_environment
   configure-infrastructure:
     docker:
@@ -217,7 +217,6 @@ jobs:
             then
                 curl https://kvdb.io/BUzSmxpEEdGXfmNSEq6Jbm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi 
-
 
   deploy-frontend:
     docker:
