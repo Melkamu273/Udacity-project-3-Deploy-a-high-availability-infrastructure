@@ -179,6 +179,7 @@ jobs:
           paths:
             - inventory.txt
             - old_workflow_id.txt
+            
       - destroy_environment
   configure-infrastructure:
     docker:
