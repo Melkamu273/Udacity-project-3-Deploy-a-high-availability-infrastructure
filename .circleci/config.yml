@@ -174,7 +174,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text >> ~/inventory.txt
             cat ~/inventory.txt
-       - persist_to_workspace:
+      - persist_to_workspace:
           root: ~/
           paths:
             - inventory.txt
