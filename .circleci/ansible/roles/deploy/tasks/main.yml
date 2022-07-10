@@ -14,7 +14,8 @@
   shell: |
     cd /home/ubuntu/app
     # npm install
-    pm2 start npm -- start
+    apk add --update curl ansible tar gzip nodejs npm openssh-client git
+    pip install awscli
 
 - name: Start node server daemon with pm2
   become: true
