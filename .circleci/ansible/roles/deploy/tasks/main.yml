@@ -13,9 +13,10 @@
   become: true
   shell: |
     cd /home/ubuntu/app
-    # npm install
-    apk add --update curl ansible tar gzip nodejs npm openssh-client git
-    pip install awscli
+    apt:
+      name: ["nodejs", "npm","tar","gzip","ansible"]
+      state: latest
+      update_cache: yes
 
 - name: Start node server daemon with pm2
   become: true
