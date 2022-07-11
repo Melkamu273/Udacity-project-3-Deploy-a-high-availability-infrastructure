@@ -21,12 +21,12 @@
   shell: |
     cd /home/ubuntu/app
     npm install
-    npm install pm2 -g  
+   
 - name: Start node server daemon with pm2
   become: true
   shell: |
     cd /home/ubuntu/app
-    pm2 start npm -- start
+    npm -- start
   register: starting_server
 
 - debug:
