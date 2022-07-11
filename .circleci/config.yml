@@ -148,6 +148,13 @@ jobs:
       - checkout
       - run: yum install -y tar gzip
       - run:
+          name: Create file to hold old workflowid
+          command: |
+            aws cloudformation \
+              list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+              --no-paginate --output text > ~/old_workflow_id.txt
+            echo The OldWorkflowID is "$(cat ~/old_workflow_id.txt)"
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
