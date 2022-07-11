@@ -23,7 +23,7 @@
   become: true
   shell: |
     cd /home/ubuntu/app
-    pm2 start npm -- start
+     npm -- start
   register: starting_server
 
 - debug:
