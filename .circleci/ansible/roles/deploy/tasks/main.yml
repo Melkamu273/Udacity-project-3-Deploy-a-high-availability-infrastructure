@@ -1,41 +1,10 @@
 ---
-- name: "update apt packages."
-  become: yes
-  apt:
-    update_cache: yes
-
-- name: "upgrade packages"
-  become: yes
-  apt:
-    upgrade: yes
-
-- name: remove unneeded deps
-  become: yes
-  apt:
-    autoremove: yes
-
-- name: install deps
-  become: yes
-  apt:
-    name: ['nodejs', 'npm']
-    state: latest
-    update_cache: yes
-
 - name: "extract artifact"
-  become: yes
   unarchive:
     src: files/artifact.tar.gz
     dest: .
 
-- name: Install pm2 with npm
-  become: true
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-    state: present
-
-- name: "start app"
+- name: start app
   become: yes
   shell: |
     npm install
