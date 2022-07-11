@@ -257,16 +257,16 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: sudo apt update -y
-      - run: sudo apt upgrade -y
+      # - run: sudo apt update -y
+      # - run: sudo apt upgrade -y
       - run:
           name: install awscli
-          command: sudo apt install awscli -y
+          command: apk add  install awscli -y
       - run:
           name: install ansible
           command: |
-            sudo apt install python3.8 -y
-            sudo apt install python3-pip -y
+           apk add  python3.8 -y
+           apk add  python3-pip -y
             python3 -m pip install --upgrade pip
             python3 -m pip install ansible --user
       - run:
