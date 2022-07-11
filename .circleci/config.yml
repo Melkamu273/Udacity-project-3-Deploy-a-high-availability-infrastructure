@@ -257,16 +257,6 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      # - run:
-      #     name: install awscli
-      #     command: apk add  install awscli -y
-      # - run:
-      #     name: install ansible
-      #     command: |
-      #      apk add  python3.8 -y
-      #      apk add  python3-pip -y
-      #       python3 -m pip install --upgrade pip
-      #       python3 -m pip install ansible --user
       - run:
           name: Install dependencies
           command: |

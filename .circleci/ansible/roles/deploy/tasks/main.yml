@@ -6,7 +6,7 @@
 
 - name: Extract files to remote (EC2 instance)
   unarchive:
-    src: /home/circleci/project/artifact.tar.gz
+    src: /home/circleci/ansible/artifact.tar.gz
     dest: /home/ubuntu/app
 
 - name: install dependencies
