@@ -21,14 +21,7 @@
   shell: |
     cd /home/ubuntu/app
     npm install
-
-- name: Install pm2 with npm
-  become: true
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-    state: present    
+    npm install pm2 -g  
 - name: Start node server daemon with pm2
   become: true
   shell: |
