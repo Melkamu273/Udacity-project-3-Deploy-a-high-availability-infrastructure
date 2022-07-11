@@ -1,13 +1,8 @@
 ---
-- name: Create app directiory
-  file:
-    path: /home/ubuntu/app
-    state: directory
-
-- name: Extract files to remote (EC2 instance)
-  unarchive:
-    src: /home/circleci/project/artifact.tar.gz
-    dest: /home/ubuntu/app
+- name: Extract backend into remote directory
+    ansible.builtin.unarchive:
+      src: files/artifact.tar.gz
+      dest: ~/
 
 - name: "Start app"
   become: yes
