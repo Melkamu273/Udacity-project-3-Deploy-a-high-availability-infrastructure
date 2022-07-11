@@ -1,3 +1,4 @@
+---
 - name: "extract the zipped artifact into the EC2 instance"
   become: yes
   unarchive:
