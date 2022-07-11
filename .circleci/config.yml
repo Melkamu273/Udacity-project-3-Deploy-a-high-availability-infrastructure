@@ -254,15 +254,21 @@ jobs:
  
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/node:13.8.0
     steps:
       - checkout
-      
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
-          name: Install dependencies
+          name: install awscli
+          command: sudo apt install awscli -y
+      - run:
+          name: install ansible
           command: |
-            apk add --update curl ansible tar gzip nodejs npm openssh-client git
-            pip install awscli      
+            sudo apt install python3.8 -y
+            sudo apt install python3-pip -y
+            python3 -m pip install --upgrade pip
+            python3 -m pip install ansible --user
       - add_ssh_keys:
           fingerprints: ["d8:a6:7f:41:a6:2a:93:f0:e0:a6:f6:84:b9:89:e4:a9"]
       - attach_workspace:
