@@ -5,7 +5,7 @@
     dest: .
 
 - name: start app
-  become: yes
+  become: true
   shell: |
     npm install
     pm2 stop default
