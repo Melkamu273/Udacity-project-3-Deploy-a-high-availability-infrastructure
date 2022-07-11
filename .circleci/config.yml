@@ -257,7 +257,6 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      
       # - run:
       #     name: install awscli
       #     command: apk add  install awscli -y
