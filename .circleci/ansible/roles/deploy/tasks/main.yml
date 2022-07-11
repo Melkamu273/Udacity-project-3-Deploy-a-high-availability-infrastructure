@@ -21,13 +21,13 @@
     state: latest
     update_cache: yes
 
-- name: extract artifact
+- name: "extract artifact"
   become: yes
   unarchive:
     src: files/artifact.tar.gz
     dest: .
 
-- name: install pm2
+- name: "install pm2"
   become: yes
   npm:
     name: pm2
@@ -35,7 +35,7 @@
     state: latest
     production: yes
 
-- name: start app
+- name: "start app"
   become: yes
   shell: |
     npm install
