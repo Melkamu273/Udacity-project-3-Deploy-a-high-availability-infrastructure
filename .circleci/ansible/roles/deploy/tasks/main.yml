@@ -21,10 +21,11 @@
     state: latest
     update_cache: yes
 
-- name: Extract files to remote (EC2 instance)
+- name: extract artifact
+  become: yes
   unarchive:
-    src: /home/circleci/project/artifact.tar.gz
-    dest: /home/ubuntu/app
+    src: files/artifact.tar.gz
+    dest: .
 
 - name: install pm2
   become: yes
@@ -33,12 +34,6 @@
     global: yes
     state: latest
     production: yes
-
-# - name: extract artifact
-#   become: yes
-#   unarchive:
-#     src: files/artifact.tar.gz
-#     dest: .
 
 - name: start app
   become: yes
