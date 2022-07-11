@@ -27,16 +27,17 @@
     src: files/artifact.tar.gz
     dest: .
 
-# - name: "install pm2"
-#   become: yes
-#   npm:
-#     name: pm2
-#     global: yes
-#     state: latest
-#     production: yes
+- name: Install pm2 with npm
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
 
 - name: "start app"
   become: yes
   shell: |
     npm install
-    npm -- start
+    pm2 stop default
+    pm2 start npm -- start
