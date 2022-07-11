@@ -1,9 +1,14 @@
 ---
-- name: "extract the zipped artifact into the EC2 instance"
-  become: yes
+- name: Create app directiory
+  file:
+    path: /home/ubuntu/app
+    state: directory
+
+- name: Extract files to remote (EC2 instance)
   unarchive:
-    src: artifact.tar.gz
-    dist: .
+    src: /home/circleci/project/artifact.tar.gz
+    dest: /home/ubuntu/app
+
 - name: "Start app"
   become: yes
   shell:  |
