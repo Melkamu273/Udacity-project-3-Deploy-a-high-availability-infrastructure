@@ -282,14 +282,12 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            pwd
-            mkdir .circleci/ansible/roles/deploy/files/
-            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/
-            ls -lh
+            # list directory contents and print working directory
+            ls -a && pwd
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.ym
+            cat  ~/inventory.txt
+            ansible-playbook -i ~/inventory.txt deploy-backend.yml
       - destroy_environment
       - revert_migrations   
 
