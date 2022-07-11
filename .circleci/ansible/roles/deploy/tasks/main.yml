@@ -14,6 +14,14 @@
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
+- name: Install pm2 with npm
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+        
 - name: install dependencies
   become: true
   shell: |
@@ -23,7 +31,7 @@
   become: true
   shell: |
     cd /home/ubuntu/app
-     npm -- start
+    pm2 start npm -- start
   register: starting_server
 
 - debug:
