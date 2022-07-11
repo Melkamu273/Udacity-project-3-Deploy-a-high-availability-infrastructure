@@ -269,6 +269,11 @@ jobs:
             sudo apt install python3-pip -y
             python3 -m pip install --upgrade pip
             python3 -m pip install ansible --user
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update curl ansible tar gzip nodejs npm openssh-client git
+            pip install awscli      
       - add_ssh_keys:
           fingerprints: ["d8:a6:7f:41:a6:2a:93:f0:e0:a6:f6:84:b9:89:e4:a9"]
       - attach_workspace:
