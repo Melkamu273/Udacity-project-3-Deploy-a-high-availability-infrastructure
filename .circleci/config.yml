@@ -326,7 +326,7 @@ jobs:
               exit 1
             fi
       - destroy_environment
-      # - revert_migrations          
+      - revert_migrations          
       
   cloudfront-update:
     docker:
