@@ -222,7 +222,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-                curl https://kvdb.io/BUzSmxpEEdGXfmNSEq6Jbm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                curl https://kvdb.io/Co6RwFX8QsVpTH8FSb9627/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi 
 
   deploy-frontend:
@@ -328,7 +328,7 @@ jobs:
       - destroy_environment
       - revert_migrations          
       
-      
+
   cloudfront-update:
     docker:
       - image: cimg/node:13.8.0
